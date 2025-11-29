@@ -2,7 +2,7 @@
 #include <string.h>
 
 struct Student {
-    int roll;
+    int sapid;
     char name[50];
     int marks[5];
     int total;
@@ -26,8 +26,8 @@ void calculate(struct Student *s) {
 }
 
 void addStudent(struct Student s[], int *n) {
-    printf("\nEnter Roll Number: ");
-    scanf("%d", &s[*n].roll);
+    printf("\nEnter Sap_id: ");
+    scanf("%d", &s[*n].sapid);
 
     printf("Enter Name: ");
     scanf("%s", s[*n].name);
@@ -52,25 +52,25 @@ void displayAll(struct Student s[], int n) {
 
     printf("\n----- Student Performance Records -----\n");
     for (int i = 0; i < n; i++) {
-        printf("\nRoll: %d\nName: %s\nTotal: %d\nPercentage: %.2f\nGrade: %c\n",
-               s[i].roll, s[i].name, s[i].total, s[i].percentage, s[i].grade);
+        printf("\nsapid: %d\nName: %s\nTotal: %d\nPercentage: %.2f\nGrade: %c\n",
+               s[i].sapid, s[i].name, s[i].total, s[i].percentage, s[i].grade);
     }
 }
 
 void searchStudent(struct Student s[], int n) {
-    int roll;
-    printf("\nEnter Roll Number to Search: ");
-    scanf("%d", &roll);
+    int sapid;
+    printf("\nEnter Sap_ID to Search: ");
+    scanf("%d", &sapid);
 
     for (int i = 0; i < n; i++) {
-        if (s[i].roll == roll) {
+        if (s[i].sapid == sapid) {
             printf("\nRecord Found:\n");
-            printf("Roll: %d\nName: %s\nTotal: %d\nPercentage: %.2f\nGrade: %c\n",
-                   s[i].roll, s[i].name, s[i].total, s[i].percentage, s[i].grade);
+            printf("sapid: %d\nName: %s\nTotal: %d\nPercentage: %.2f\nGrade: %c\n",
+                   s[i].sapid, s[i].name, s[i].total, s[i].percentage, s[i].grade);
             return;
         }
     }
-    printf("No student found with this roll number.\n");
+    printf("No student found with this Sap_ID.\n");
 }
 
 int main() {
@@ -94,4 +94,5 @@ int main() {
             default: printf("Invalid choice! Try again.\n");
         }
     }
+
 }
