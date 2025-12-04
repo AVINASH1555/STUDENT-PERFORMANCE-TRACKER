@@ -2,7 +2,7 @@
 #include <string.h>
 
 struct Student {
-    int sapid;
+    int roll;
     char name[50];
     int marks[5];
     int total;
@@ -13,8 +13,9 @@ struct Student {
 void calculate(struct Student *s) {
     s->total = 0;
 
-    for (int i = 0; i < 5; i++)
-        s->marks[i] += 0, s->total += s->marks[i];
+    for (int i = 0; i < 5; i++) {
+        s->total += s->marks[i];
+    }
 
     s->percentage = s->total / 5.0;
 
@@ -26,11 +27,13 @@ void calculate(struct Student *s) {
 }
 
 void addStudent(struct Student s[], int *n) {
-    printf("\nEnter Sap_id: ");
-    scanf("%d", &s[*n].sapid);
+    printf("\nEnter Roll Number: ");
+    scanf("%d", &s[*n].roll);
 
+    getchar();   // Clear input buffer before reading name
     printf("Enter Name: ");
-    scanf("%s", s[*n].name);
+    fgets(s[*n].name, sizeof(s[*n].name), stdin);
+    s[*n].name[strcspn(s[*n].name, "\n")] = '\0';  // remove newline
 
     printf("Enter marks of 5 subjects:\n");
     for (int i = 0; i < 5; i++) {
@@ -52,25 +55,25 @@ void displayAll(struct Student s[], int n) {
 
     printf("\n----- Student Performance Records -----\n");
     for (int i = 0; i < n; i++) {
-        printf("\nsapid: %d\nName: %s\nTotal: %d\nPercentage: %.2f\nGrade: %c\n",
-               s[i].sapid, s[i].name, s[i].total, s[i].percentage, s[i].grade);
+        printf("\nRoll: %d\nName: %s\nTotal: %d\nPercentage: %.2f\nGrade: %c\n",
+               s[i].roll, s[i].name, s[i].total, s[i].percentage, s[i].grade);
     }
 }
 
 void searchStudent(struct Student s[], int n) {
-    int sapid;
-    printf("\nEnter Sap_ID to Search: ");
-    scanf("%d", &sapid);
+    int roll;
+    printf("\nEnter Roll Number to Search: ");
+    scanf("%d", &roll);
 
     for (int i = 0; i < n; i++) {
-        if (s[i].sapid == sapid) {
+        if (s[i].roll == roll) {
             printf("\nRecord Found:\n");
-            printf("sapid: %d\nName: %s\nTotal: %d\nPercentage: %.2f\nGrade: %c\n",
-                   s[i].sapid, s[i].name, s[i].total, s[i].percentage, s[i].grade);
+            printf("Roll: %d\nName: %s\nTotal: %d\nPercentage: %.2f\nGrade: %c\n",
+                   s[i].roll, s[i].name, s[i].total, s[i].percentage, s[i].grade);
             return;
         }
     }
-    printf("No student found with this Sap_ID.\n");
+    printf("No student found with this roll number.\n");
 }
 
 int main() {
@@ -94,5 +97,4 @@ int main() {
             default: printf("Invalid choice! Try again.\n");
         }
     }
-
 }
